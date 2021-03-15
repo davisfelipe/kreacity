@@ -1,4 +1,4 @@
-from mongoengine import DateTimeField, Document, IntField, StringField
+from mongoengine import BooleanField, DateTimeField, Document, IntField, StringField
 
 from src.utils import DateTime
 
@@ -21,8 +21,9 @@ class Client(BaseDocument):
     identification = IntField(required=True, unique=True)
     identification_type = StringField(required=True)
     rol = StringField()
-
+    is_deleted = BooleanField(default=False)
 
 class User(BaseDocument):
     username = IntField(required=True, unique=True)
     password = StringField(required=True)
+    is_enabled = BooleanField(default=True)

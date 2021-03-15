@@ -7,7 +7,7 @@ __all__ = [
 
 api_information = dict(
     title = 'Kreacity Employees',
-    description = 'Any description about kreacity',
+    description = 'Application to Employees Management',
     version = '1.0.0',
 )
 

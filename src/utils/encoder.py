@@ -21,7 +21,7 @@ class BsonObject:
     def to_dict(document: Document):
         raw = BsonEncoder().encode(document.to_mongo())
         document = loads(raw)
-        fields = ['_id', 'inserted_at', 'updated_at']
+        fields = ['_id', 'inserted_at', 'updated_at', 'is_deleted']
         for key in document.copy().keys():
             if key in fields:
                 del document[key]
