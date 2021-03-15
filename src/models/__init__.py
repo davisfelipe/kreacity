@@ -1,3 +1,8 @@
-from .input.user import User as UserInput
+from .db_models.client import Client, User
+from .input.client import Client as UserInput
 
-__all__ = ['UserInput']
+__all__ = [
+    'UserInput',
+    'Client',
+    'User'
+]
