@@ -17,6 +17,7 @@ class ClientMessages:
     NOT_FOUND: str = 'Client Not Found'
     FOUND: str = 'Client found'
     UPDATED: str = 'Client has been updated'
+    DELETED: str = 'Client has been deleted'
 
 
 @dataclass
