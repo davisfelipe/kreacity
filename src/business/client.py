@@ -6,7 +6,7 @@ from starlette.status import (
     HTTP_404_NOT_FOUND
 )
 
-from src.models import Client, ClientInput, User
+from src.models import Client, ClientInput, ClientUpdateInput, User
 from src.repository import ClientRepository
 from src.utils import BaseResponse, BusinessCase
 from src.utils.encoder import BsonObject
@@ -65,4 +65,21 @@ class FindClient(BusinessCase):
             message = ClientMessages.FOUND,
             status_code = HTTP_200_OK,
             data = BsonObject.to_dict(client)
+        )
+
+
+class UpdateClient(BusinessCase):
+    def handle(self, client_id: int, client: ClientUpdateInput):
+        client_found = ClientRepository.find_one(client_id)
+        if not client_found:
+            return ClientResponse(
+                message = ClientMessages.NOT_FOUND,
+                status_code = HTTP_404_NOT_FOUND
+            )
+        client_found.update(**client.dict())
+        client_found.reload()
+        return ClientResponse(
+            message = ClientMessages.UPDATED,
+            status_code = HTTP_200_OK,
+            data = BsonObject.to_dict(client_found)
         )
