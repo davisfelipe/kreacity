@@ -35,6 +35,7 @@ services:
       - 27017:27017
     volumes:
     - /tmp/data:/data/db
+    - ./extra/mongo/init_mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
 
 networks:
   kreacity:
