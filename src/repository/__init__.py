@@ -1,5 +1,6 @@
-from .client import UserRepository
+from .client import ClientRepository, UserRepository
 
 __all__ = [
-    'UserRepository'
+    'UserRepository',
+    'ClientRepository'
 ]
