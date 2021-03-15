@@ -15,3 +15,8 @@ api_information = dict(
 @dataclass
 class MongoDB:
     mongo_uri: str = environ.get('MONGO_URI')
+
+
+@dataclass
+class JWT:
+    phrase: str = environ.get('JWT_TOKEN')

@@ -12,3 +12,11 @@ class Client(BaseModel):
 
     class Config:
         validate_assignment = True
+
+
+class User(BaseModel):
+    username: int = Field(...)
+    password: SecretStr = Field(...)
+
+    class Config:
+        validate_assignment = True

@@ -1,7 +1,7 @@
 from mongoengine import NotUniqueError
 from starlette.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 
-from src.models import Client, User, UserInput
+from src.models import Client, ClientInput, User
 from src.utils import BaseResponse, BusinessCase
 from src.utils.response import ClientMessages, UserMessages
 
@@ -12,11 +12,11 @@ class ClientResponse(BaseResponse):
 
 class CreateClient(BusinessCase):
 
-    def handle(self, user: UserInput) -> ClientResponse:
+    def handle(self, user: ClientInput) -> ClientResponse:
         client = self._create_client_and_user(user)
         return client
 
-    def _create_client_and_user(self, user: UserInput) -> (ClientResponse, bool):
+    def _create_client_and_user(self, user: ClientInput) -> ClientResponse:
         new_client = Client.from_json(user.json())
         new_user = User(
             username=user.identification,
