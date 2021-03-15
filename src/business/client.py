@@ -1,8 +1,15 @@
 from mongoengine import NotUniqueError
-from starlette.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
+from starlette.status import (
+    HTTP_200_OK,
+    HTTP_201_CREATED,
+    HTTP_400_BAD_REQUEST,
+    HTTP_404_NOT_FOUND
+)
 
 from src.models import Client, ClientInput, User
+from src.repository import ClientRepository
 from src.utils import BaseResponse, BusinessCase
+from src.utils.encoder import BsonObject
 from src.utils.response import ClientMessages, UserMessages
 
 
@@ -12,11 +19,12 @@ class ClientResponse(BaseResponse):
 
 class CreateClient(BusinessCase):
 
-    def handle(self, user: ClientInput) -> ClientResponse:
-        client = self._create_client_and_user(user)
+    def handle(self, client: ClientInput) -> ClientResponse:
+        client = self._create_client_and_user(client)
         return client
 
-    def _create_client_and_user(self, user: ClientInput) -> ClientResponse:
+    @classmethod
+    def _create_client_and_user(cls, user: ClientInput) -> ClientResponse:
         new_client = Client.from_json(user.json())
         new_user = User(
             username=user.identification,
@@ -42,4 +50,19 @@ class CreateClient(BusinessCase):
         return ClientResponse(
             message = ClientMessages.CREATED,
             status_code = HTTP_201_CREATED
+        )
+
+
+class FindClient(BusinessCase):
+    def handle(self, client_id: int):
+        client = ClientRepository.find_one(client_id)
+        if not client:
+            return ClientResponse(
+                message = ClientMessages.NOT_FOUND,
+                status_code = HTTP_404_NOT_FOUND
+            )
+        return ClientResponse(
+            message = ClientMessages.FOUND,
+            status_code = HTTP_200_OK,
+            data = BsonObject.to_dict(client)
         )

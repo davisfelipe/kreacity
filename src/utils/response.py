@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -6,7 +7,7 @@ from pydantic import BaseModel, Field
 class BaseResponse(BaseModel):
     message: str = Field(...)
     status_code: int = Field(...)
-    data: dict = Field(None)
+    data: Any = Field(None)
 
 
 @dataclass
@@ -14,6 +15,7 @@ class ClientMessages:
     CREATED: str = 'Client has been created'
     EXIST: str = 'Client Exist'
     NOT_FOUND: str = 'Client Not Found'
+    FOUND: str = 'Client found'
 
 
 @dataclass
