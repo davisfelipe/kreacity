@@ -9,6 +9,7 @@ services:
       - kreacity
     volumes:
     - ./src:/app/src
+
   nginx:
     container_name: kreacity_nginx
     image: nginx:alpine
@@ -20,6 +21,21 @@ services:
       - 80:80
     volumes:
       - ./extra/nginx/nginx.conf:/etc/nginx/nginx.conf
+
+  mongo:
+    container_name: kreacity_mongo
+    environment:
+      TZ: America/Bogota
+      MONGO_INITDB_ROOT_USERNAME: kreacity_root
+      MONGO_INITDB_ROOT_PASSWORD: kreacity_pass
+    image: mongo:3-xenial
+    networks:
+      - kreacity
+    ports:
+      - 27017:27017
+    volumes:
+    - /tmp/data:/data/db
+    - ./extra/mongo/init_mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
 
 networks:
   kreacity:
