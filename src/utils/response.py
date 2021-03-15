@@ -16,6 +16,7 @@ class ClientMessages:
     EXIST: str = 'Client Exist'
     NOT_FOUND: str = 'Client Not Found'
     FOUND: str = 'Client found'
+    UPDATED: str = 'Client has been updated'
 
 
 @dataclass
