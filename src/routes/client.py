@@ -22,7 +22,7 @@ def find_client(client_id: int):
 
 
 @user_routes.put("/client/{client_id}")
-def find_client(client_id: int, client: ClientUpdateInput):
+def update_client(client_id: int, client: ClientUpdateInput):
     use_case = UpdateClient()
     response = use_case.handle(client_id, client)
     return JSONResponse(content=response.dict(), status_code=response.status_code)

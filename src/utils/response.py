@@ -25,3 +25,4 @@ class UserMessages:
     EXIST: str = 'User Exist'
     NOT_FOUND: str = 'User Not Found'
     GRANTED: str = "User has been logged"
+    DENIED: str = 'User or Password are incorrect'

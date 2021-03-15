@@ -1,15 +1,12 @@
+from fastapi import Depends, HTTPException
+from fastapi.security import OAuth2PasswordBearer
 from jwt import encode
 
 from src.config import JWT
 from src.models import User
 from src.utils import DateTime
 
-
-def validate_jwt(func):
-    def execution(*args, **kwargs):
-        return func(*args, **kwargs)
-
-    return execution
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl = "token")
 
 
 def generate_jwt(user: User):
