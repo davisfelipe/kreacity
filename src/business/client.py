@@ -35,7 +35,7 @@ class CreateClient(BusinessCase):
             new_user.save()
         except NotUniqueError:
             response = ClientResponse(
-                message = ClientMessages.EXIST,
+                message = UserMessages.EXIST,
                 status_code = HTTP_400_BAD_REQUEST
             )
             return response
@@ -44,7 +44,7 @@ class CreateClient(BusinessCase):
             new_client.save()
         except NotUniqueError:
             response = ClientResponse(
-                message = UserMessages.EXIST,
+                message = ClientMessages.EXIST,
                 status_code = HTTP_400_BAD_REQUEST
             )
             return response
@@ -77,7 +77,7 @@ class UpdateClient(BusinessCase):
                 message = ClientMessages.NOT_FOUND,
                 status_code = HTTP_404_NOT_FOUND
             )
-        client_found.update(**client.dict())
+        client_found.update(**client.dict(exclude_none=True))
         client_found.reload()
         return ClientResponse(
             message = ClientMessages.UPDATED,
