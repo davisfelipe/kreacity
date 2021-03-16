@@ -1,6 +1,6 @@
-from starlette.status import HTTP_200_OK, HTTP_404_NOT_FOUND
+from starlette.status import HTTP_200_OK, HTTP_403_FORBIDDEN
 
-from src.models import UserInput
+from src.models import UserAuth
 from src.repository import UserRepository
 from src.security.jwt_token import generate_jwt
 from src.utils import BaseResponse, BusinessCase
@@ -13,13 +13,16 @@ class UserResponse(BaseResponse):
 
 class LoginUser(BusinessCase):
 
-    def handle(self, user: UserInput) -> UserResponse:
+    def handle(self, user: UserAuth) -> UserResponse:
         user_found = UserRepository.find_one(user.username)
+        response = UserResponse(
+            message = UserMessages.DENIED,
+            status_code = HTTP_403_FORBIDDEN
+        )
         if not user_found:
-            response = UserResponse(
-                message = UserMessages.NOT_FOUND,
-                status_code = HTTP_404_NOT_FOUND
-            )
+            return response
+
+        if user.password != user_found.password:
             return response
 
         data = dict(

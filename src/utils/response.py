@@ -11,6 +11,12 @@ class BaseResponse(BaseModel):
 
 
 @dataclass
+class TokenMessages:
+    INVALID: str = 'Invalid Token'
+    EXPIRED: str = 'Token Has Been Expired'
+
+
+@dataclass
 class ClientMessages:
     CREATED: str = 'Client has been created'
     EXIST: str = 'Client Exist'
@@ -25,3 +31,4 @@ class UserMessages:
     EXIST: str = 'User Exist'
     NOT_FOUND: str = 'User Not Found'
     GRANTED: str = "User has been logged"
+    DENIED: str = 'User or Password are incorrect'
