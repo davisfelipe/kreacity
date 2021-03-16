@@ -4,16 +4,19 @@ from pytz import timezone
 
 
 class DateTime:
+    local_timezone = timezone('America/Bogota')
 
     @classmethod
     def current_datetime(cls) -> datetime:
         utc_timezone = timezone('UTC')
-        local_timezone = timezone('America/Bogota')
-
         now = datetime.utcnow()
-        return now.replace(tzinfo=utc_timezone).astimezone(local_timezone)
+        return now.replace(tzinfo=utc_timezone).astimezone(cls.local_timezone)
 
     @classmethod
     def expiration_date(cls, minutes: int = 0, hours: int = 0) -> datetime:
         return cls.current_datetime() + timedelta(minutes=minutes, hours=hours)
+
+    @classmethod
+    def from_timestamp(cls, time: int) -> datetime:
+        return datetime.fromtimestamp(time, tz=cls.local_timezone)
 
