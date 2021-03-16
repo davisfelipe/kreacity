@@ -2,7 +2,9 @@ from dataclasses import dataclass
 from os import environ
 
 __all__ = [
-    'api_information'
+    'api_information',
+    'MongoDB',
+    'JWT'
 ]
 
 api_information = dict(
