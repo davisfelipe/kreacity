@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from typing import Union
 
 from pytz import timezone
 
@@ -17,6 +18,6 @@ class DateTime:
         return cls.current_datetime() + timedelta(minutes=minutes, hours=hours)
 
     @classmethod
-    def from_timestamp(cls, time: int) -> datetime:
+    def from_timestamp(cls, time: Union[int, float]) -> datetime:
         return datetime.fromtimestamp(time, tz=cls.local_timezone)
 

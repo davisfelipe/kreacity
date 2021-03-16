@@ -7,15 +7,19 @@ from src.models.input.base import BaseSchema
 
 
 class ClientUpdate(BaseSchema):
-    name: str = Field(..., min_length = 3)
-    last_name: str = Field(..., min_length = 3)
-    identification_type: str = Field(..., enum = ['CC', 'CE', "TI"])
-    rol: str = Field(...)
+    name: str = Field(None, min_length = 3)
+    last_name: str = Field(None, min_length = 3)
+    identification_type: str = Field(None, enum = ['CC', 'CE', "TI"])
+    rol: str = Field(None)
 
 
 class Client(ClientUpdate):
+    name: str = Field(..., min_length = 3)
+    last_name: str = Field(..., min_length = 3)
     identification: int = Field(...)
+    identification_type: str = Field(..., enum = ['CC', 'CE', "TI"])
     password: SecretStr = Field(...)
+    rol: str = Field(...)
 
     @validator('password', pre=True)
     def password_encrypt(cls, v):
