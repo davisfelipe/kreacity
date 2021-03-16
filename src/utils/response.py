@@ -11,6 +11,12 @@ class BaseResponse(BaseModel):
 
 
 @dataclass
+class TokenMessages:
+    INVALID: str = 'Invalid Token'
+    EXPIRED: str = 'Token Has Been Expired'
+
+
+@dataclass
 class ClientMessages:
     CREATED: str = 'Client has been created'
     EXIST: str = 'Client Exist'

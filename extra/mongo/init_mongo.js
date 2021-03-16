@@ -11,4 +11,8 @@ db.createUser({
 
 db.createCollection("user")
 
-db.user.insert({"username": 1,"password":"hi, im god","is_enabled":true})
+db.user.insert({
+    "username": 1,
+    "password":"64ef9fb87f9bd92144e366b59861cde62dbb006ee14e539c93d5eabf9fa9f8be",
+    "is_enabled":true
+})
